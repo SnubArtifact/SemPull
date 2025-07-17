@@ -26,12 +26,12 @@ const groupSchema = new mongoose.Schema({
     },
 
     startTime: {
-        type: Number,
+        type: String,
         required: true,
         unique: false,
     },
     endTime: {
-        type: Number,
+        type: String,
         required: true,
         unique: false,
     },

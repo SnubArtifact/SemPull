@@ -6,6 +6,7 @@ const cors = require('cors');
 const app = express();
 const groupRoutes = require('./routes/groupCreate');
 const yourGroupsRoutes = require('./routes/yourGroups');
+const groupFetchRoutes = require('./routes/groupFetch');
 
 
 dotenv.config(); // Load environment variables
@@ -27,11 +28,12 @@ app.use(express.json()); // Parse incoming JSON
 app.use('/api/auth', authRoutes);
 app.use('/api/groupCreate', groupRoutes);
 app.use('/api/yourGroups', yourGroupsRoutes);
+app.use('/api/groupFetch', groupFetchRoutes);
 
 
 
 //Starting server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 

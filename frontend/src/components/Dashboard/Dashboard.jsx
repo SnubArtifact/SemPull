@@ -20,58 +20,25 @@ const Dashboard = () => {
       try {
         // Simulate API call
         setTimeout(() => {
-          const mockGroups = [
-            {
-              id: 1,
-              name: 'CS F111 - Data Structures Study Group',
-              course: 'CS F111',
-              branch: 'Computer Science',
-              description: 'Weekly study sessions for Data Structures course. All skill levels welcome!',
-              members: 8,
-              maxMembers: 12,
-              meetingTime: 'Mon/Wed 4-5pm',
-              createdBy: 'Jane Doe',
-              isBookmarked: false
-            },
-            {
-              id: 2,
-              name: 'PHY F111 - Quantum Mechanics Group',
-              course: 'PHY F111',
-              department: 'Physics',
-              description: 'Collaborative problem solving for Quantum Mechanics assignments.',
-              members: 5,
-              maxMembers: 10,
-              meetingTime: 'Tue/Thu 3-4pm',
-              createdBy: 'John Smith',
-              isBookmarked: true
-            },
-            {
-              id: 3,
-              name: 'MATH F111 - Calculus Study Circle',
-              course: 'MATH F111',
-              department: 'Mathematics',
-              description: 'Preparing for upcoming calculus exams together.',
-              members: 6,
-              maxMembers: 8,
-              meetingTime: 'Fri 2-4pm',
-              createdBy: 'Alex Johnson',
-              isBookmarked: false
-            },
-            {
-              id: 4,
-              name: 'EEE F111 - Circuit Theory Group',
-              course: 'EEE F111',
-              department: 'Electrical Engineering',
-              description: 'Hands-on circuit building and theory discussions.',
-              members: 4,
-              maxMembers: 6,
-              meetingTime: 'Sat 10am-12pm',
-              createdBy: 'Sarah Williams',
-              isBookmarked: false
-            }
-          ];
-          setStudyGroups(mockGroups);
-          setFilteredGroups(mockGroups);
+          
+            fetch('http://localhost:5001/api/groupFetch', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+              setStudyGroups(data);
+              setFilteredGroups(data);
+              data.forEach(group => {
+                group.isBookmarked = false;
+            })
+              
+            })
+            
+          
           setIsLoading(false);
         }, 1000);
       } catch (error) {
@@ -323,7 +290,7 @@ const Dashboard = () => {
                           to={`/groups/${group.id}`}
                           className="text-lg font-medium text-blue-600 hover:text-blue-500 truncate"
                         >
-                          {group.name}
+                          {group.groupName}
                         </Link>
                       </div>
                       <div className="ml-2 flex-shrink-0 flex">
@@ -336,11 +303,11 @@ const Dashboard = () => {
                       <div className="sm:flex">
                         <p className="flex items-center text-sm text-gray-500">
                           <FiUsers className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
-                          {group.department} • {group.course}
+                          {group.branch} • {group.courseCode}
                         </p>
                         <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
                           <FiClock className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
-                          {group.meetingTime}
+                          {group.startTime.toString().padStart(2, '0')}-{group.endTime.toString().padStart(2, '0')}
                         </p>
                       </div>
                       <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
@@ -354,12 +321,7 @@ const Dashboard = () => {
                       <p className="text-sm text-gray-600">{group.description}</p>
                     </div>
                     <div className="mt-4 flex justify-end">
-                      <Link
-                        to={`/groups/${group.id}`}
-                        className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                      >
-                        View Details
-                      </Link>
+                      
                       <Link
                         to={`/groups/${group.id}/join`}
                         className={`ml-3 inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white ${group.members >= group.maxMembers ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'}`}
