@@ -4,6 +4,7 @@ const router = express.Router();
 const Group = require('../models/group');
 
 
+
 //POST/api/groupCreate
 
 router.post('/create-group', async(req, res)=>{
@@ -18,6 +19,7 @@ router.post('/create-group', async(req, res)=>{
             meetingDays: req.body.meetingDays,
             maxMembers: req.body.maxMembers,
             createdBy: req.body.createdBy,
+            
         });
 
         const savedGroup = await newGroup.save();

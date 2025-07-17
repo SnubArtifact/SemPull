@@ -14,7 +14,7 @@ const Dashboard = () => {
   });
   const [isLoading, setIsLoading] = useState(true);
 
-  // Mock data - replace with actual API call
+  
   useEffect(() => {
     const fetchStudyGroups = async () => {
       try {

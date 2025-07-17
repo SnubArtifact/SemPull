@@ -10,6 +10,9 @@ import ForgotPasswordPage from './components/ForgotPass/ForgotPass'
 import Dashboard from './components/Dashboard/Dashboard'
 import CreateGroup from './components/CreateGroup/CreateGroup'
 import YourListings from './components/Listings/YourListings'
+import JoinGroup from './components/JoinGroup/JoinGroup'
+
+
 
 function App() {
  
@@ -25,6 +28,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/create-group' element={<CreateGroup />} />
         <Route path = '/your-listings' element={<YourListings />} />
+        <Route path='/groups/:id/join' element={<JoinGroup />} />
       </Routes>
     </Router>
     </>

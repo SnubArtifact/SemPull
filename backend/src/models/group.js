@@ -51,6 +51,7 @@ const groupSchema = new mongoose.Schema({
         required: true,
         unique: false,
     },
+    
 })
 
 module.exports = mongoose.model('Group', groupSchema);
